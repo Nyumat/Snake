@@ -22,6 +22,7 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 CENTER_COORDS = [200,150,10,10]
 
+
 timer = pygame.time.Clock()
 
 # Snake Constants
@@ -34,7 +35,11 @@ def initSnake(SNAKE_BLOCK,SNAKE_BODY):
 
 def displayMessage(message,colour):
       text = FONT.render(message,True,colour)
-      screen.blit(text,[SCREEN_WIDE/6, SCREEN_HEIGHT/6])
+      screen.blit(text,[SCREEN_WIDE/6, SCREEN_HEIGHT/3])
+
+def displayScore(score):
+      total_score = SCORE_FONT.render("Score: " + str(score), True, GREEN)
+      screen.blit(total_score, [0,0])
 
 def start():
 
@@ -58,6 +63,7 @@ def start():
             while closed == True:
                   screen.fill(BLACK)
                   displayMessage("Loss. Q to quit or P to play again." , RED)
+                  displayScore(snake_len - 1)
                   pygame.display.update()
 
                   for event in pygame.event.get():
@@ -108,6 +114,7 @@ def start():
                         closed = True
             
             initSnake(SNAKE_BLOCK, snake)
+            displayScore(snake_len  - 1)
 
             pygame.display.update()
 
