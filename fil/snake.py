@@ -48,6 +48,7 @@ def start():
 
       gameOver = False
       closed = False
+      paused = False
 
       x1 = SCREEN_WIDE / 2
       y1 = SCREEN_HEIGHT / 2
@@ -59,6 +60,19 @@ def start():
       bar = round(rand.randrange(0, SCREEN_HEIGHT - SNAKE_BLOCK) / 10.0) * 10.0
 
       while not gameOver:
+
+            while paused == True:
+                  displayMessage("Paused. Tap T to Continue or Q to Quit.", BLUE)
+                  pygame.display.update()
+
+                  for ev in pygame.event.get():
+                        if ev.type == pygame.KEYDOWN:
+                              if ev.key == pygame.K_t:
+                                    paused = False
+                              elif ev.key == pygame.K_q:
+                                    pygame.quit()
+                                    quit()
+                              
 
             while closed == True:
                   screen.fill(BLACK)
@@ -73,6 +87,7 @@ def start():
                                     closed = False
                               if event.key == pygame.K_p:
                                     start()
+                              
 
             for move in pygame.event.get():
                   if move.type == pygame.QUIT:
@@ -90,6 +105,9 @@ def start():
                         elif move.key == pygame.K_DOWN:
                               y1_move = SNAKE_BLOCK
                               x1_move = 0
+                        elif move.key == pygame.K_t:
+                              paused = True
+      
 
             # If the user exit's the screen (edges)
             if x1 >= SCREEN_WIDE or x1 < 0 or y1 >= SCREEN_HEIGHT or y1 < 0:
